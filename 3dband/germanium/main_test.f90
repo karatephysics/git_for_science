@@ -2,6 +2,7 @@ program bandge
 
 implicit none
 real(8)::e_ini,e_fin,nn,sa,e0,e1,e2,e3
+real(8)::kx,ky,kz
 integer::i,j,ss,nkx,nky,nkz,indexx
 real(8),dimension(4)::DOSpara
 real(8),dimension(6)::vol_tetra
@@ -15,23 +16,26 @@ DOSpara(1)=101
 
 !do nkz=1,int((int(DOSpara(1))-1)/2)
 nkz=1
-  do nky=nkz,int(0.75*(int(DOSpara(1))-1)-nkz*0.5)
-      do nkx=nky,int(1.5*(int(DOSpara(1))-1)-nkz-nky)!.and.nkx<(DOSpara(1)-1)
+
+  do nky=nkz,int(0.75*(int(DOSpara(1))-1)-nkz*0.5+1)
+      do nkx=nky,int(1.5*(int(DOSpara(1))-1)-nkz-nky+1)!.and.nkx<(DOSpara(1)-1)
          if (nkx>=(DOSpara(1)-1)) then
             go to 11
             else
-                    call ham(nkx,nky,nkz,energy)
-                write(15,*) nkx,nky,energy(5)
-                write(7,*) nkx,nky,energy(7)
-                write(9,*) nkx,nky,energy(9)
-                write(11,*) nkx,nky,energy(11)
-                write(13,*) nkx,nky,energy(13)
+                    call ham(nkx-1,nky-1,nkz-1,energy)
+		kx=real((nkx-1))/100
+		ky=real((nky-1))/100
+                write(15,*)  kx,ky,energy(5)
+                write(7,*)  kx,ky,energy(7)
+                write(9,*)  kx,ky,energy(9)
+                write(11,*) kx,ky,energy(11)
+                write(13,*) kx,ky,energy(13)
                 !do i=9,18
                 !    do j=1,8
                 i=9
                 j=7
                     gap(i,j)=energy(i)-energy(j)
-                write(17,*) nkx,nky,gap(i,j)
+                write(17,*) kx,ky,gap(i,j)
                 !    moji=abs(gap(k,i,j)-laser)
                 !    if (0<=moji.and.moji<=0.001d0) then
                 !       pump_p(k,i,j)=1

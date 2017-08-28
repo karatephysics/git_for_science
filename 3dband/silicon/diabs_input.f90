@@ -43,6 +43,7 @@ do i=1,4*nt
       write(111,*) i-1,wc(i,11)
       write(113,*) i-1,wc(i,13)
       write(115,*) i-1,wc(i,15)
+      write(117,*) i-1,wc(i,17)
 end do
 
 
