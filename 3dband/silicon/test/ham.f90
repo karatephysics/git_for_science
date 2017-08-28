@@ -17,7 +17,7 @@ DOSpara(1)=101
 
 energy=0
 pi=3.141592d0
-a0=5.6754d0/0.529d0
+a0=5.43d0/0.529d0
 
 kx=(pi/a0)*a/(DOSpara(1)-1)
 ky=(pi/a0)*b/(DOSpara(1)-1)
