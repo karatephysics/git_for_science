@@ -1,4 +1,4 @@
-subroutine band_30(h,kx,ky,kz,a)
+subroutine band_30(kx,ky,kz,a)
 implicit none 
 character, parameter :: jobz="v", uplo="l" 
 integer, parameter ::n=30, lda=n, lwork=2*n-1 
@@ -10,8 +10,8 @@ complex(kind(0d0)) ::a(lda,n), work(lwork)
 real(8)::El25,El2,E15,Eu1,El1,E12,Eu25,Eu2
 real(8)::so25,so15
 real(8)::P,P1,P2,P3,Q,Q1,T,T1,R,R1
-real(8),intent(in)::kx,ky,kz,h
-real(8)::x,y,b,pi
+real(8),intent(in)::kx,ky,kz
+real(8)::b,pi
 complex(8)::zr,zi
 
 El25=0.0d0
@@ -33,10 +33,14 @@ P3=1.236d0
 T=1.097d0
 T1=0.283d0
 
+so25=0.044d0/13.6d0
+so25=so25/3.0d0
+
 b=3.0d0
 pi=3.141592d0 
 zr=(1.0d0,0.0d0) 
 zi=(0.0d0,1.0d0)
+
 
 do i=1,n
    do j=1,n
