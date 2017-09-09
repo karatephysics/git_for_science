@@ -1,4 +1,4 @@
-program bandge
+program bandsilicon
 
 implicit none
 real(8)::e_ini,e_fin,nn,sa,e0,e1,e2,e3
@@ -76,5 +76,5 @@ do nky=nkz,int(DOSpara(1))
     end do
 end do
 
-end program bandge
+end program bandsilicon
 

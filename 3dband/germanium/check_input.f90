@@ -47,13 +47,14 @@ do i=1,4*nt
       write(127,*) i-1,wc(i,29)
 end do
 
-    write(116,"(10A10)") "i-1","cl1","c25","cl2","c15","cu1","c12","cu25","cu2","total"
+    write(116,"(10A10)") "i-1","cl1","cl25","cl2","c15","cu1","c12","cu25","cu2","total"
 do i=1,4*nt
     do j=1,30
         laser_ev=cl25(i,j)+c15(i,j)+cu25(i,j)+cu1(i,j)+cl1(i,j)+cl2(i,j)+c12(i,j)+cu2(i,j)
     end do
-        write(116,"(I10.2,9f10.4)") i-1,cl1(i,j),cl25(i,j),cl2(i,j),c15(i,j),cu1(i,j),c12(i,j),cu25(i,j),cu2(i,j),laser_ev
-!        write(117,*) i-1,cu2(i,2)
+        !write(116,"(I10.2,9f10.4)") i-1,cl1(i,30),cl25(i,j),cl2(i,j),c15(i,j),cu1(i,j),c12(i,j),cu25(i,j),cu2(i,j),laser_ev
+        !jは30の値になるのでトータルと異なる値になるので注意
+        write(116,"(I10.2,9f10.4)") i-1,laser_ev
         laser_ev=0
 end do
 

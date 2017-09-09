@@ -53,7 +53,6 @@ do i=1,4*nt
         laser_ev=cl25(i,j)+c15(i,j)+cu25(i,j)+cu1(i,j)+cl1(i,j)+cl2(i,j)+c12(i,j)+cu2(i,j)
     end do
         write(116,"(I10.2,9f10.4)") i-1,cl1(i,j),cl25(i,j),cl2(i,j),c15(i,j),cu1(i,j),c12(i,j),cu25(i,j),cu2(i,j),laser_ev
-!        write(117,*) i-1,cu2(i,2)
         laser_ev=0
 end do
 
