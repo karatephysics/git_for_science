@@ -1,4 +1,4 @@
-program germanium
+program silicon
 implicit none
 
 character, parameter :: jobz="v", uplo="l"
@@ -9,24 +9,23 @@ double precision, dimension(n) ::w
 complex(kind(0d0)) ::a(lda,n), work(lwork)
 
 integer,parameter::nt=1000
-real(8)::laser_ev,den
-real(8)::x,l,g,g2,g3,s
+real(8)::laser_ev
 real(8)::P,P1,P2,P3,Q,Q1,T,T1,R,R1
 real(8),dimension(4*nt,n)::wc
 real(8),dimension(4*nt,n)::cl25,cu25,c15,cu1,cl1,cl2,c12,cu2
 
-P=1.345d0
-Q=1.139d0
-R=0.619d0
-P2=0.429d0
-P1=0.019d0
-Q1=0.948d0
-R1=1.076d0
-P3=1.424d0
-T=1.145d0
-T1=0.281d0
+!P=4.600d0
+!Q=4.201d0
+!R=2.283d0
+!P2=1.584d0
+!P1=-0.071d0
+!Q1=-3.497d0
+!R1=3.970d0
+!P3=5.252d0
+!T=4.223d0
+!T1=1.034d0
 
-laser_ev=2.33
+read(*,*) laser_ev !励起光のエネルギー(eV)、実行時入力すること call fullband(laser_ev,nt,wc,gap,density,pump_p)
 
 call fullband(laser_ev,nt,wc,cl25,c15,cu25,cu1,cl1,cl2,c12,cu2)
 
@@ -48,15 +47,4 @@ do i=1,4*nt
       write(129,*) i-1,wc(i,29)
 end do
 
-    write(116,"(10A10)") "i-1","cl1","cl25","cl2","c15","cu1","c12","cu25","cu2","total"
-do i=1,4*nt
-    do j=1,30
-        laser_ev=cl25(i,j)+c15(i,j)+cu25(i,j)+cu1(i,j)+cl1(i,j)+cl2(i,j)+c12(i,j)+cu2(i,j)
-    end do
-        !write(116,"(I10.2,9f10.4)") i-1,cl1(i,30),cl25(i,j),cl2(i,j),c15(i,j),cu1(i,j),c12(i,j),cu25(i,j),cu2(i,j),laser_ev
-        !jは30の値になるのでトータルと異なる値になるので注意
-        write(116,"(I10.2,9f10.4)") i-1,laser_ev
-        laser_ev=0
-end do
-
-end program germanium
+end program silicon
