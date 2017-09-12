@@ -14,3 +14,14 @@ dipole_main.f90内の双極子計算部分などをサブルーチンに分離�
 dipole_main.f90 sb_bandinfo.f90 sb_dipole.f90 sb_30band.f90
 で実行
 ※siliconバンドにて実装
+・9/11
+プログラムのツリー構造を以下の条件に変更
+1.mainプログラムは３次元バンド計算を行いつつ、吸収係数導出のためのパラメータが選択的に導出できるプログラム
+2.mainプログラムは、格子定数a、双極子遷移パラメータpara、バンド幅を指定ができるようなものに変更
+3.dosに関してはまだ未考慮
+
+dipole_main.f90 → main.f90
+sb_bandinfo.f90 sb_dipole.f90 sb_30band.f90
+
+まずはサンプルプログラムにてGeとSiで作成
+main_sample.f90 sb_sample30band.f90 sb_sampleham.f90 sb_sampleparas.f90 
