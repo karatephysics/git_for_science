@@ -17,7 +17,7 @@ real(8),dimension(10)::dipolepara
 real(8)::dipolemoment
 
 para=0
-para(1)=201
+para(1)=101
 nkz=1
 gap=0
 dipolepara(1)=1.211d0 !P

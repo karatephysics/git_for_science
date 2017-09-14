@@ -18,7 +18,7 @@ real(8),dimension(20)::energypara,dipolepara
 laser=laser_ev/13.6055d0
 
 call paras(atomnum,lattice,energypara,dipolepara)
-write(*,*) atomnum
+!write(*,*) atomnum
 
 pi=3.141592d0
 lattice=5.43d0/0.529177d0  !格子定数/ボーア半径
@@ -81,6 +81,7 @@ call zheev(jobz, uplo, n, a, lda, w, work, lwork, rwork, info)
   do i=1,n
       wc(k+nt,i)=w(i)*13.6d0
   end do
+   write(225,*) kx,ky,kz,wc(k+nt,9),h
 
    do i=1,n
       do j=1,n

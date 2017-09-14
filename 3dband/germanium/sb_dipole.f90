@@ -17,7 +17,7 @@ real(8),dimension(n,8),intent(out)::eigenv
 ! aaが固有関数なので注意
 energy=0
 pi=3.141592d0
-a0=5.6754d0/0.529d0
+a0=5.6754d0/0.529177d0
 cl25=0
 cu25=0
 c15=0
@@ -36,6 +36,7 @@ call zheev(jobz, uplo, n, aa, lda, w, work, lwork, rwork, info)
 do i=1,n
     energy(i)=w(i)*13.6d0
 end do
+write(*,*) a,b,c,energy(5)
 
 do i=1,n
     do j=1,n

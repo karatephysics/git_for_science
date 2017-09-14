@@ -16,7 +16,7 @@ real(8),dimension(n,8)::pump_p
 real(8)::P,P1,P2,P3,Q,Q1,T,T1,R,R1
 
 para=0
-para(1)=201
+para(1)=101
 nkz=1
 gap=0
 P=1.345d0

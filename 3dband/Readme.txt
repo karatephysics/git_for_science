@@ -20,8 +20,14 @@ dipole_main.f90 sb_bandinfo.f90 sb_dipole.f90 sb_30band.f90
 2.mainプログラムは、格子定数a、双極子遷移パラメータpara、バンド幅を指定ができるようなものに変更
 3.dosに関してはまだ未考慮
 
-dipole_main.f90 → main.f90
-sb_bandinfo.f90 sb_dipole.f90 sb_30band.f90
+main.f90 sb_bandinfo.f90 sb_dipole.f90 sb_30band.f90
 
 まずはサンプルプログラムにてGeとSiで作成
 main_sample.f90 sb_sample30band.f90 sb_sampleham.f90 sb_sampleparas.f90 
+
+・9/14
+9/11の続き
+main.f90 sb_bandinfo.f90 sb_dipole.f90 sb_30band.f90 
+の更新
+とりあえず完成、格子定数を変更するとGeとSiの原子番号さえ導入すれば値がでる
+pi/aを2pi/aに変更、ここはバグでした。
