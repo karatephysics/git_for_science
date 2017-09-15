@@ -8,7 +8,7 @@ double precision, dimension(3*n-2) :: rwork
 double precision, dimension(n) ::w 
 complex(kind(0d0)) ::a(lda,n),work(lwork)
 integer,intent(in)::atomnum,nkx,nky,nkz,nt
-real(8)::kx,ky,kz,lattice,egap,pi
+real(8)::kx,ky,kz,lattice,egap,pi,hx,hy,hz
 real(8),dimension(n)::para
 real(8),dimension(n),intent(out)::energy
 real(8),dimension(n,8),intent(out)::eigenv
@@ -21,10 +21,19 @@ energy=0
 pi=3.141592d0
 eigenv=0
 
-kx=(2*pi/lattice)*nkx/(nt-1)
-ky=(2*pi/lattice)*nky/(nt-1)
-kz=(2*pi/lattice)*nkz/(nt-1)
+kx=0.5d0
+ky=0.5d0 
+kz=0.5d0 
 
+hx=(2*pi/lattice)*(kx+nkx/(nt-1))
+hy=(2*pi/lattice)*(ky+nky/(nt-1))
+hz=(2*pi/lattice)*(1.5-(kx+nkx/(nt-1))-(ky+nky/(nt-1)))
+
+kx=hx
+ky=hy
+kz=hz
+
+write(225,*) hx,hy,hz,energy(9)
 call band_30(kx,ky,kz,energypara,dipolepara,a)
 call zheev(jobz, uplo, n, a, lda, w, work, lwork, rwork, info)
 do i=1,n

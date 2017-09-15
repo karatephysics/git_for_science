@@ -15,7 +15,8 @@ real(8),dimension(n,n)::pump_p
 real(8),dimension(10)::dipolepara
 real(8)::dipolemoment
 
-read(*,*) atomnum
+!read(*,*) atomnum
+atomnum=14
 
 para=0
 para(1)=101
