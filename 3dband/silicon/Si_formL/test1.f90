@@ -19,7 +19,7 @@ real(8)::dipolemoment
 atomnum=14
 
 para=0
-para(1)=101
+para(1)=100
 nkz=1
 gap=0
 
@@ -28,12 +28,20 @@ laser_ev=2
 
 write(211,"(5a10)") 'laser_ev','diff','i','j','dipole'
 
-do nky=nkz,int(para(1))
-    do nkx=nkz,int(para(1))
-        para(2)=int(0.75*int((para(1)-1))-nkz*0.5+1)
+do nkz=1,int(para(1)+1)
+do nky=nkz,int(para(1)+1)
+    do nkx=nkz,int(para(1)+1)
+        para(2)=int(0.75*int(para(1)+1)-nkz*0.5)
         if (nky<=int(para(2))) then
-            para(3)=int(1.5*int((para(1)-1))-nkz-nky+1)
-            if (nky<=nkx.and.nkx<=int((para(1)-1)).and.nkx<=para(3)) then
+            para(3)=int(1.5*int(para(1)+1)-nkz-nky)
+            if (nky<=nkx.and.nkx<=int(para(1)+1).and.nkx<=para(3)) then
+                    !write(*,"(4I10.3)") nkx,nky,nkz,nkx+nky+nkz
+                if (nkx+nky+nkz==int(1.5*para(1)+1)) then  !L-G-X
+!               if (nky==nkz) then  !L-K-W
+!              if (nkx==nky) then  !L-G-K
+!                if (nkx==int(para(1)+1)) then  !U-X-W
+!                if (nkz==1) then  !G-X-K
+                    write(226,"(5I10.3)") nkx-1,nky-1,nkz-1!,nkx+nky+nkz,int(1.5*para(1))
                 call ham(atomnum,nkx-1,nky-1,nkz-1,int(para(1)),energy,eigenv)
                 kx=real((nkx-1))/para(1)!100
                 ky=real((nky-1))/para(1)!100
@@ -45,6 +53,7 @@ do nky=nkz,int(para(1))
                 write(15,*)  kx,ky,energy(11)
                 write(17,*)  kx,ky,energy(13)
                 call bandinfo(kx,ky,laser_ev,energy,dipolepara,eigenv,gap,pump_p,dipolemoment)
+                end if
 !                write(211,"(2f10.4)") gap(10,10),dipolemoment
             else
                 kx=real((nkx-1))/para(1)!100
@@ -74,6 +83,7 @@ do nky=nkz,int(para(1))
         end if
     11       sa=sa
     end do
+end do
 end do
 
 end program main
