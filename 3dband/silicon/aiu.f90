@@ -29,22 +29,21 @@ laser_ev=2
 write(211,"(5a10)") 'laser_ev','diff','i','j','dipole'
 
 !do nkz=1,int(para(1)+1)
-do nky=1,int(para(1))
-    do nkx=1,int(para(1))
-                nkz=int(1.5*int(para(1))-nkx-nky+2)
-        para(2)=int(0.75*int(para(1))-nkx*0.5+1)
-               ! write(227,"(f10.4)") para(2)
+do nky=1,int(para(1)+1)
+    do nkx=1,int(para(1)+1)
+                nkz=int(1.5*int(para(1)+1)-nkx-nky)
+        para(2)=int(0.75*int(para(1)+1)-nkx*0.5)
+                write(227,"(f10.4)") para(2)
         if (nky>=int(para(2))) then
-            para(3)=int(1.5*int(para(1))-nkx-nky+2)
-            if (nky<=nkx.and.nkz<=nky.and.nkx<=int(para(1)).and.nkz<=int(para(3)).and.nkz>=1) then!.and.nky>=int(1.5-nkx)) then
+            para(3)=int(1.5*int(para(1)+1)-nkx-nkz)/100
+            if (nky<=nkx.and.nkx<=int(para(1)+1).and.nky<=int(para(3)).and.nky>=int(1.5-nkx)) then
                     !write(*,"(4I10.3)") nkx,nky,nkz,nkx+nky+nkz
 !                if (nkx+nky+nkz==int(1.5*para(1)+1)) then  !L-G-X
 !               if (nky==nkz) then  !L-K-W
 !              if (nkx==nky) then  !L-G-K
 !                if (nkx==int(para(1)+1)) then  !U-X-W
 !                if (nkz==1) then  !G-X-K
-                    write(227,"(3I10.3,2f10.3)") nkx,nky,nkz,para(2),para(3)!,nkx+nky+nkz,int(1.5*para(1))
-                    write(226,"(3I10.3,f10.3)") nkx-1,nky-1,nkz-1,para(2)!,nkx+nky+nkz,int(1.5*para(1))
+                    write(226,"(5I10.3)") nkx-1,nky-1,nkz-1!,nkx+nky+nkz,int(1.5*para(1))
                 call ham(atomnum,nkx-1,nky-1,nkz-1,int(para(1)),energy,eigenv)
                 kx=real((nkx-1))/para(1)!100
                 ky=real((nky-1))/para(1)!100

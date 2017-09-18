@@ -19,7 +19,7 @@ real(8)::dipolemoment
 atomnum=14
 
 para=0
-para(1)=100
+para(1)=101
 nkz=1
 gap=0
 
@@ -29,14 +29,14 @@ laser_ev=2
 write(211,"(5a10)") 'laser_ev','diff','i','j','dipole'
 
 !do nkz=1,int(para(1)+1)
-do nkz=1,int(para(1)+1)
-    do nky=1,int(para(1)+1)
+do nkz=1,int(para(1))
+    do nky=1,int(para(1))
                 nkx=nky
-        para(2)=int(0.75*int(para(1)+1)-nkz*0.5)
-                write(227,"(f10.4)") para(2)
+        para(2)=int(3*para(1)/4+1-nkz*0.5)
         if (nky<=int(para(2))) then
-            para(3)=int(1.5*int(para(1)+1)-nkz-nky)
-            if (nkx<=nky.and.nkx<=int(para(1)+1).and.nkx<=para(3).and.nkz<=nky) then
+            para(3)=int(1.5*para(1)+2-nkz-nky)
+            if (nkx<=nky.and.nkx<=int(para(1)).and.nkx<=para(3).and.nkz<=nky) then
+                    write(227,"(3I10.3,2f10.3)") nkx,nky,nkz,para(2),para(3)!,nkx+nky+nkz,int(1.5*para(1))
                     !write(*,"(4I10.3)") nkx,nky,nkz,nkx+nky+nkz
 !                if (nkx+nky+nkz==int(1.5*para(1)+1)) then  !L-G-X
 !               if (nky==nkz) then  !L-K-W
