@@ -31,10 +31,9 @@ write(211,"(5a10)") 'laser_ev','diff','i','j','dipole'
 !do nkz=1,int(para(1)+1)
     do l=1,int(para(1))
     do m=1,int(para(1))
-        nkx=int(100-0.5*l+2)
-       ! nky=int(25+0.25*l+0.25*m*2-1)
-        nky=int(25+0.25*l+0.25*m*2+1)
-        nkz=int(25+0.25*l-0.25*m*2+2)
+        nkx=int(50+0.5*m+1)
+        nky=int(50+0.25*l*2+1)
+        nkz=int(50-0.25*l*2-0.5*m+2)
                 write(228,"(5i10)") nkx,nky,nkz
         para(2)=int(0.75*int(para(1))-nkx*0.5+1)
                ! write(227,"(f10.4)") para(2)
