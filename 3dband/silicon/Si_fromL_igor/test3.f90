@@ -62,7 +62,7 @@ do i=1,n
         para(i)=para(i)+eigenv(i,j)
     end do
     if (nint(para(i))==1) then
-        write(202,*) para(i)
+        write(209,*) para(i)
         else
         write(*,*) para(i)
     end if 

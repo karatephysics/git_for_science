@@ -53,14 +53,8 @@ write(211,"(5a10)") 'laser_ev','diff','i','j','dipole'
                 kx=real((nkx-1))/100
                 ky=real((nky-1))/100
 
-                write(7,*)  kx,ky,energy(3)
-                write(9,*)  kx,ky,energy(5)
-                write(11,*)  kx,ky,energy(7)
-                write(13,*)  kx,ky,energy(9)
-                write(15,*)  kx,ky,energy(11)
-                write(17,*)  kx,ky,energy(13)
-                write(229,"(5i10,3f10.4)")  l,m,nkx,nky,nkz,para(2),para(3),energy(13)
-           !     call bandinfo(kx,ky,laser_ev,energy,dipolepara,eigenv,gap,pump_p,dipolemoment)
+                do i=101,130,2
+                write(i,"(3f10.4)")  kx,ky,energy(i)
                            i=9
                 j=7
                 gap(i,j)=energy(i)-energy(j)

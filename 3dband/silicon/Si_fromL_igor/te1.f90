@@ -53,25 +53,21 @@ write(211,"(5a10)") 'laser_ev','diff','i','j','dipole'
                 kx=real((nkx-1))/100
                 ky=real((nky-1))/100
 
-                write(7,*)  kx,ky,energy(3)
-                write(9,*)  kx,ky,energy(5)
-                write(11,*)  kx,ky,energy(7)
-                write(13,*)  kx,ky,energy(9)
-                write(15,*)  kx,ky,energy(11)
-                write(17,*)  kx,ky,energy(13)
-                write(229,"(5i10,3f10.4)")  l,m,nkx,nky,nkz,para(2),para(3),energy(13)
-           !     call bandinfo(kx,ky,laser_ev,energy,dipolepara,eigenv,gap,pump_p,dipolemoment)
-                           i=9
+                do i=101,115
+                j=2*(i-100)
+                write(i,"(3f10.4)")  kx,ky,energy(j)
+                end do
+                i=9
                 j=7
                 gap(i,j)=energy(i)-energy(j)
                 gap(10,10)=1.12d0-energy(j)
-                write(18,*) kx,ky,gap(i,j)
-                write(19,*) kx,ky,gap(10,10)
+                write(201,*) kx,ky,gap(i,j)
+                write(202,*) kx,ky,gap(10,10)
                 moji=abs(gap(10,10)-1.55d0)
                 if (0<=moji.and.moji<=0.01d0) then
-                  write(20,*) kx,ky,gap(10,10)
+                  write(203,*) kx,ky,gap(10,10)
                 else
-                  write(20,*) kx,ky,"nan"
+                  write(203,*) kx,ky,"nan"
                 end if
 
 !                end if
@@ -79,30 +75,24 @@ write(211,"(5a10)") 'laser_ev','diff','i','j','dipole'
             else
                 kx=real((nkx-1))/para(1)!100
                 ky=real((nky-1))/para(1)!100
-                write(7,*)  kx,ky,"nan"
-                write(9,*)  kx,ky,"nan"
-                write(11,*)  kx,ky,"nan"
-                write(13,*)  kx,ky,"nan"
-                write(15,*)  kx,ky,"nan"
-                write(17,*)  kx,ky,"nan"
-                write(18,*) kx,ky,"nan"
-                write(19,*) kx,ky,"nan"
-                write(20,*) kx,ky,"nan"
-                write(229,"(5i10,2f10.4,a10)")  l,m,nkx,nky,nkz,para(2),para(3),"nan"
+                do i=101,115
+                j=2*(i-100)
+                write(i,"(2f10.4,a10)")  kx,ky,"nan"
+                end do
+                write(201,*) kx,ky,"nan"
+                write(202,*) kx,ky,"nan"
+                write(203,*) kx,ky,"nan"
             end if
         else
             kx=real((nkx-1))/para(1)!100
             ky=real((nky-1))/para(1)!100
-            write(7,*) kx,ky,"nan"
-            write(9,*) kx,ky,"nan"
-            write(11,*) kx,ky,"nan"
-            write(13,*) kx,ky,"nan"
-            write(15,*) kx,ky,"nan"
-            write(17,*) kx,ky,"nan"
-            write(18,*) kx,ky,"nan"
-            write(19,*) kx,ky,"nan"
-            write(20,*) kx,ky,"nan"
-                write(229,"(5i10,2f10.4,a10)")  l,m,nkx,nky,nkz,para(2),para(3),"nan"
+                do i=101,115
+                j=2*(i-100)
+                write(i,"(2f10.4,a10)")  kx,ky,"nan"
+                end do
+                write(201,*) kx,ky,"nan"
+                write(202,*) kx,ky,"nan"
+                write(203,*) kx,ky,"nan"
         end if
     11       sa=sa
     end do
