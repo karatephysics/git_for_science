@@ -31,15 +31,16 @@ write(211,"(5a10)") 'laser_ev','diff','i','j','dipole'
 !do nkz=1,int(para(1)+1)
     do l=1,int(para(1))
     do m=1,int(para(1))
-        nkx=int(100-0.5*l+2)
-        nky=int(25+0.25*l+0.25*m*2+1)
-        nkz=int(25+0.25*l-0.25*m*2+2)
+        nkx=int(50-0.25*l+0.5*m+1)
+        nky=int(50+0.5*l)
+        nkz=int(50-0.25*l-0.5*m+2)
                 write(228,"(5i10)") nkx,nky,nkz
         para(2)=int(0.75*int(para(1))-nkx*0.5+1)
                ! write(227,"(f10.4)") para(2)
-        if (nky>=int(para(2))) then
+        !if (nky>=int(para(2))) then
+        if (atomnum==14) then
             para(3)=int(1.5*int(para(1))-nkx-nky+2)
-            if (nky<=nkx.and.nkz<=nky.and.nkx<=int(para(1)).and.nkz<=int(para(3)).and.nkz>=1) then!.and.nky>=int(1.5-nkx)) then
+            if (nky<=nkx.and.nkz<=nky.and.nkx<=int(para(1)).and.nkz>=1) then!.and.nky>=int(1.5-nkx)) then
 
 !                if (nkx+nky+nkz==int(1.5*para(1)+1)) then  !L-G-X
 !               if (nky==nkz) then  !L-K-W
@@ -52,24 +53,21 @@ write(211,"(5a10)") 'laser_ev','diff','i','j','dipole'
                 kx=real((nkx-1))/100
                 ky=real((nky-1))/100
 
-                write(7,*)  kx,ky,energy(3)
-                write(9,*)  kx,ky,energy(5)
-                write(11,*)  kx,ky,energy(7)
-                write(13,*)  kx,ky,energy(9)
-                write(15,*)  kx,ky,energy(11)
-                write(17,*)  kx,ky,energy(13)
-           !     call bandinfo(kx,ky,laser_ev,energy,dipolepara,eigenv,gap,pump_p,dipolemoment)
-                           i=9
+                do i=119,133
+                j=2*(i-100)
+                write(i,"(3f10.4)")  kx,ky,energy(j)
+                end do
+                i=9
                 j=7
                 gap(i,j)=energy(i)-energy(j)
                 gap(10,10)=1.12d0-energy(j)
-                write(18,*) kx,ky,gap(i,j)
-                write(19,*) kx,ky,gap(10,10)
+                write(134,*) kx,ky,gap(i,j)
+                write(135,*) kx,ky,gap(10,10)
                 moji=abs(gap(10,10)-1.55d0)
                 if (0<=moji.and.moji<=0.01d0) then
-                  write(20,*) kx,ky,gap(10,10)
+                  write(136,*) kx,ky,gap(10,10)
                 else
-                  write(20,*) kx,ky,"nan"
+                  write(136,*) kx,ky,"nan"
                 end if
 
 !                end if
@@ -77,28 +75,24 @@ write(211,"(5a10)") 'laser_ev','diff','i','j','dipole'
             else
                 kx=real((nkx-1))/para(1)!100
                 ky=real((nky-1))/para(1)!100
-                write(7,*)  kx,ky,"nan"
-                write(9,*)  kx,ky,"nan"
-                write(11,*)  kx,ky,"nan"
-                write(13,*)  kx,ky,"nan"
-                write(15,*)  kx,ky,"nan"
-                write(17,*)  kx,ky,"nan"
-                write(18,*) kx,ky,"nan"
-                write(19,*) kx,ky,"nan"
-                write(20,*) kx,ky,"nan"
+                do i=119,133
+                j=2*(i-100)
+                write(i,"(2f10.4,a10)")  kx,ky,"nan"
+                end do
+                write(134,*) kx,ky,"nan"
+                write(135,*) kx,ky,"nan"
+                write(136,*) kx,ky,"nan"
             end if
         else
             kx=real((nkx-1))/para(1)!100
             ky=real((nky-1))/para(1)!100
-            write(7,*) kx,ky,"nan"
-            write(9,*) kx,ky,"nan"
-            write(11,*) kx,ky,"nan"
-            write(13,*) kx,ky,"nan"
-            write(15,*) kx,ky,"nan"
-            write(17,*) kx,ky,"nan"
-            write(18,*) kx,ky,"nan"
-            write(19,*) kx,ky,"nan"
-            write(20,*) kx,ky,"nan"
+                do i=119,133
+                j=2*(i-100)
+                write(i,"(2f10.4,a10)")  kx,ky,"nan"
+                end do
+                write(134,*) kx,ky,"nan"
+                write(135,*) kx,ky,"nan"
+                write(136,*) kx,ky,"nan"
         end if
     11       sa=sa
     end do
