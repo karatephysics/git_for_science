@@ -1,0 +1,138 @@
+subroutine dipole(nkx,nky,nkz,c)
+implicit none
+character, parameter :: jobz="v", uplo="l" 
+integer, parameter ::n=30, lda=n, lwork=2*n-1 
+integer ::info, i, j, k 
+double precision, dimension(3*n-2) :: rwork 
+double precision, dimension(n) ::w 
+complex(kind(0d0)) ::a(lda,n), work(lwork) 
+real(8)::kx,ky,kz
+real(8)::h,s,ca,cb,cc,cd
+integer,intent(in)::nkx,nky,nkz
+!real(8),intent(in)::laser_ev
+!integer,intent(in)::nt
+real(8)::pi,a0,moji,laser,gap,energy
+real(8),dimension(4)::DOSpara
+real(8),dimension(10001)::c
+real(8),dimension(n,n)::wc
+
+real(8)::P,P1,P2,P3,Q,Q1,T,T1,R,R1
+real(8)::e_ini,e_fin,nn,sa
+complex(8),dimension(100)::cl25,cu25,c15,cu1,cl1,cl2,c12,cu2
+complex(8),dimension(10001)::e
+complex(8)::zr,zi
+
+write(215,*) nkx,nky,nkz
+P=1.345d0
+Q=1.139d0
+R=0.619d0
+P2=0.429d0
+P1=0.019d0
+Q1=0.948d0
+R1=1.076d0
+P3=1.424d0
+T=1.145d0
+T1=0.281d0
+
+zr=(1.0d0,0.0d0)
+zi=(0.0d0,1.0d0)
+
+DOSpara(1)=21!51
+!DOSpara(1)=201
+DOSpara(2)=10001
+DOSpara(3)=0.8
+DOSpara(4)=3
+pi=3.141592d0
+a0=5.6754d0/0.529177d0  !格子定数/ボーア半径
+
+kx=(pi/a0)*nkx/(DOSpara(1)-1)
+ky=(pi/a0)*nky/(DOSpara(1)-1)
+kz=(pi/a0)*nkz/(DOSpara(1)-1)
+w=0
+wc=0
+
+call band_30(kx,ky,kz,a)
+
+call zheev(jobz, uplo, n, a, lda, w, work, lwork, rwork, info)
+
+cl25=0
+c15=0
+cu25=0
+cu1=0
+cl1=0
+cl2=0
+c12=0
+cu2=0
+   do i=1,n
+      do j=1,n
+         if (1<=j.and.j<=6) then
+           cl25(i)=cl25(i)+abs(a(j,i))**2
+         else if (7<=j.and.j<=12) then
+           c15(i)=c15(i)+abs(a(j,i))**2
+         else if (13<=j.and.j<=18) then
+           cu25(i)=cu25(i)+abs(a(j,i))**2
+         else if (19<=j.and.j<=20) then
+           cu1(i)=cu1(i)+abs(a(j,i))**2
+         else if (21<=j.and.j<=22) then
+           cl1(i)=cl1(i)+abs(a(j,i))**2
+         else if (23<=j.and.j<=24) then
+           cl2(i)=cl2(i)+abs(a(j,i))**2
+         else if (25<=j.and.j<=28) then
+           c12(i)=c12(i)+abs(a(j,i))**2
+        else
+           cu2(i)=cu2(i)+abs(a(j,i))**2
+         end if
+      end do
+   end do
+
+   do i=1,n
+       ! write(212,"(2f11.2)") real(cl25(i)),real(cu25(i))
+        write(213,"(8f11.4)") real(cl25(i)),real(cu25(i)),real(c15(i)),real(cu1(i)),real(cl1(i))&
+                ,real(cl2(i)),real(c12(i)),real(cu2(i))
+   end do
+
+e_ini=DOSpara(3)
+e_fin=DOSpara(4)
+nn=DOSpara(2)
+sa=(e_fin-e_ini)/(nn-1)
+
+  
+do k=1,10000
+energy=e_ini+sa*(k-1)
+ do i=3,16
+       do j=3,16
+       gap=(w(i)-w(j))*13.6d0
+       moji=gap-energy
+       if (0<=moji.and.moji<=0.01) then
+         e(k)=e(k)+P*cl25(i)*cl2(j)
+         e(k)=e(k)+P*cl25(j)*cl2(j)
+         e(k)=e(k)+P1*cu25(i)*cl2(j)
+         e(k)=e(k)+P1*cu25(j)*cl2(i)
+         e(k)=e(k)+P2*cl25(i)*cu2(j)
+         e(k)=e(k)+P2*cl25(j)*cu2(i)
+         e(k)=e(k)+P3*cu25(i)*cu2(j)
+         e(k)=e(k)+P3*cu25(j)*cu2(i)
+         e(k)=e(k)+Q*cl25(i)*c15(j)
+         e(k)=e(k)+Q*cl25(j)*c15(i)
+         e(k)=e(k)+Q1*cu25(i)*c15(j)
+         e(k)=e(k)+Q1*cu25(j)*c15(i)
+         e(k)=e(k)+R*cl25(i)*c12(j)
+         e(k)=e(k)+R*cl25(j)*c12(i)
+         e(k)=e(k)+R1*cu25(i)*c12(j)
+         e(k)=e(k)+R1*cu25(j)*c12(i)
+         e(k)=e(k)+T*cl1(i)*c15(j)
+         e(k)=e(k)+T*cl1(j)*c15(i)
+         e(k)=e(k)+T1*cu1(i)*c15(j)
+         e(k)=e(k)+T1*cu1(j)*c15(i)
+!write(*,*)moji,i,j,e(k)
+       end if
+       end do
+  end do
+end do
+
+do k=1,10000
+        c(k)=abs(e(k))**2
+write(*,*)k,moji,c(k)
+end do
+
+end subroutine dipole 

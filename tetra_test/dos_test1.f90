@@ -9,11 +9,12 @@ real(8),dimension(4)::DOSpara
 real(8),dimension(4)::stock
 real(8),dimension(10001)::DOS,DOS_parts,NOS
 
-!DOSpara(1)=51
-DOSpara(1)=101
+DOSpara(1)=51
+!DOSpara(1)=201
+!DOSpara(2)=10001
 DOSpara(2)=10001
-DOSpara(3)=0.7d0
-DOSpara(4)=10.0d0
+DOSpara(3)=2.0
+DOSpara(4)=3.0
 nn=DOSpara(2)
 
 stock(1)=e0

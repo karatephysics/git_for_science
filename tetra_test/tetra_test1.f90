@@ -11,8 +11,9 @@ real(8),dimension(4,8)::cube
 real(8),dimension(3,4)::tetra1,tetra2,tetra3,tetra4,tetra5,tetra6
 real(8),dimension(3,3)::mat
 
-!DOSpara(1)=51
-DOSpara(1)=101
+DOSpara(1)=51
+!DOSpara(1)=201
+!DOSpara(2)=10001
 DOSpara(2)=10001
 
 nn=DOSpara(1)
@@ -412,7 +413,7 @@ ene_tetra6=0
 !$omp parallel 
 !$omp do
 do ss=1,4
-   do indexx=1,44
+   do indexx=1,6
 
 call ham(a1(1,ss),a1(2,ss),a1(3,ss),energy)
       ene_tetra1(ss,indexx)=energy(indexx)*13.6d0

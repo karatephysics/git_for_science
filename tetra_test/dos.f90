@@ -9,10 +9,12 @@ real(8),dimension(4)::DOSpara
 real(8),dimension(4)::stock
 real(8),dimension(10001)::DOS,DOS_parts,NOS
 
-DOSpara(1)=101
+DOSpara(1)=51
+!DOSpara(1)=201
+!DOSpara(2)=10001
 DOSpara(2)=10001
-DOSpara(3)=-5
-DOSpara(4)=5
+DOSpara(3)=2.0
+DOSpara(4)=3.0
 nn=DOSpara(2)
 
 stock(1)=e0
@@ -31,9 +33,9 @@ do i=1,4
    end do
 end do
 
-do i=1,4
-   write(14,*) i,stock(i)
-end do
+!do i=1,4
+!   write(14,*) i,stock(i)
+!end do
 
 e_ini=DOSpara(3)
 e_fin=DOSpara(4)

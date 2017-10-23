@@ -1,15 +1,22 @@
-subroutine parts_cal(para,e0,e1,e2,e3,VT,DOS,NOS)
+subroutine parts_cal(e0,e1,e2,e3,VT,DOS,NOS)
 implicit none
 real(8),intent(in)::e0,e1,e2,e3,VT
-real(8),dimension(4),intent(in)::para
 integer::aa,i,j,j0,j1,j2,j3
 real(8)::sort1,sort2
 real(8)::e_ini,e_fin,nn,sa,VG
 real(8)::e10,e20,e30,e21,e31,e32
+real(8),dimension(4)::DOSpara
 real(8),dimension(4)::stock
 real(8),dimension(10001)::DOS,DOS_parts,NOS
 
-nn=para(2)
+DOSpara(1)=51
+!DOSpara(1)=201
+!DOSpara(2)=10001
+DOSpara(2)=10001
+DOSpara(3)=0.8
+DOSpara(4)=3
+nn=DOSpara(2)
+
 stock(1)=e0
 stock(2)=e1
 stock(3)=e2
@@ -30,9 +37,9 @@ end do
 !   write(14,*) i,stock(i)
 !end do
 
-e_ini=para(3)
-e_fin=para(4)
-nn=para(2)
+e_ini=DOSpara(3)
+e_fin=DOSpara(4)
+nn=DOSpara(2)
 sa=(e_fin  -  e_ini)/(nn-1)
 
 j0=nint((stock(1)-e_ini)/sa)
@@ -42,7 +49,7 @@ j3=nint((stock(4)-e_ini)/sa)
 
 !write(23,*) j0,j1,j2,j3
 
-VG=1/2.0d0/3.0d0*(para(1)-1)**3
+VG=1/2.0d0/3.0d0*(DOSpara(1)-1)**3
 e10=stock(2)-stock(1)
 e20=stock(3)-stock(1)
 e30=stock(4)-stock(1)
