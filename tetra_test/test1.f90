@@ -9,16 +9,16 @@ real(8),dimension(3,4)::tetra1,tetra2,tetra3,tetra4,tetra5,tetra6
 real(8),dimension(4,100)::ene_tetra1,ene_tetra2,ene_tetra3,ene_tetra4,ene_tetra5,ene_tetra6
 real(8),dimension(10001)::DOS,NOS,DOS_parts
 real(8),dimension(10001)::energy
-integer,parameter::N=2000
+!integer,parameter::N=2000
 integer t1, t2, t_rate, t_max, diff
 
 
-para(1)=51
+para(1)=101
 !para(1)=201
 !para(2)=10001
 para(2)=1001
 para(3)=0.8
-para(4)=3
+para(4)=5
 
 DOS=0
 e_ini=para(3)

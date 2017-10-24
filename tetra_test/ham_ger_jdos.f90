@@ -20,9 +20,9 @@ DOSpara(1)=51
 pi=3.141592d0
 a0=5.6754d0/0.529177d0  !格子定数/ボーア半径
 
-kx=(pi/a0)*nkx/(DOSpara(1)-1)
-ky=(pi/a0)*nky/(DOSpara(1)-1)
-kz=(pi/a0)*nkz/(DOSpara(1)-1)
+kx=2*(pi/a0)*nkx/(DOSpara(1)-1)
+ky=2*(pi/a0)*nky/(DOSpara(1)-1)
+kz=2*(pi/a0)*nkz/(DOSpara(1)-1)
 w=0
 wc=0
 

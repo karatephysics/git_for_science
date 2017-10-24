@@ -301,7 +301,6 @@ ss=0
 mat=0
 roku=6.0d0
 
-
 do ss=1,3
    mat(1,ss)=tetra1(1,ss+1)-tetra1(1,1)
    mat(2,ss)=tetra1(2,ss+1)-tetra1(2,1)

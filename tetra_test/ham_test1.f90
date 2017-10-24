@@ -5,8 +5,8 @@ real(8),dimension(2)::energy
 real(8),dimension(2)::DOSpara
 real(8)::kx,ky,kz,a0,egap,pi
 
-!DOSpara(1)=51
-DOSpara(1)=101
+DOSpara(1)=51
+!DOSpara(1)=101
 
 energy=0
 egap=0.5d0
