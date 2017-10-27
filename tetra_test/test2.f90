@@ -407,26 +407,32 @@ ene_tetra6=0
 !$omp parallel 
 !$omp do
 do ss=1,4
-   do indexx=1,6
+   do indexx=1,44
 
 call ham(a1(1,ss),a1(2,ss),a1(3,ss),energy)
-      ene_tetra1(ss,indexx)=energy(indexx)*13.6d0
+!      ene_tetra1(ss,indexx)=energy(indexx)*13.588251d0
+      ene_tetra1(ss,indexx)=energy(indexx)*13.588251d0
 !      write(13,*) kx,ss,ene_tetra1(ss,indexx)
 
 call ham(a2(1,ss),a2(2,ss),a2(3,ss),energy)
-      ene_tetra2(ss,indexx)=energy(indexx)*13.6d0
+!      ene_tetra2(ss,indexx)=energy(indexx)*13.588251d0
+      ene_tetra2(ss,indexx)=energy(indexx)*13.588251d0
 
 call ham(a1(1,ss),a1(2,ss),a1(3,ss),energy)
-      ene_tetra3(ss,indexx)=energy(indexx)*13.6d0
+!      ene_tetra3(ss,indexx)=energy(indexx)*13.588251d0
+      ene_tetra3(ss,indexx)=energy(indexx)*13.588251d0
 
 call ham(a1(1,ss),a1(2,ss),a1(3,ss),energy)
-      ene_tetra4(ss,indexx)=energy(indexx)*13.6d0
+!      ene_tetra4(ss,indexx)=energy(indexx)*13.588251d0
+      ene_tetra4(ss,indexx)=energy(indexx)*13.588251d0
 
 call ham(a1(1,ss),a1(2,ss),a1(3,ss),energy)
-      ene_tetra5(ss,indexx)=energy(indexx)*13.6d0
+!      ene_tetra5(ss,indexx)=energy(indexx)*13.588251d0
+      ene_tetra5(ss,indexx)=energy(indexx)*13.588251d0
 
 call ham(a1(1,ss),a1(2,ss),a1(3,ss),energy)
-      ene_tetra6(ss,indexx)=energy(indexx)*13.6d0
+!      ene_tetra6(ss,indexx)=energy(indexx)*13.588251d0
+      ene_tetra6(ss,indexx)=energy(indexx)*13.588251d0
 
    end do
 end do

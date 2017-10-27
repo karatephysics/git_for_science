@@ -7,9 +7,8 @@ real(8)::sort1,sort2
 real(8)::e_ini,e_fin,nn,sa,VG
 real(8)::e10,e20,e30,e21,e31,e32
 real(8),dimension(4)::stock
-real(8),dimension(10001)::DOS,DOS_parts,NOS
+real(8),dimension(2001)::DOS,DOS_parts,NOS
 
-nn=para(2)
 stock(1)=e0
 stock(2)=e1
 stock(3)=e2
@@ -30,9 +29,9 @@ end do
 !   write(14,*) i,stock(i)
 !end do
 
+nn=para(2)
 e_ini=para(3)
 e_fin=para(4)
-nn=para(2)
 sa=(e_fin  -  e_ini)/(nn-1)
 
 j0=nint((stock(1)-e_ini)/sa)
@@ -96,8 +95,21 @@ else
    end do
 end if
 
-!do i=1,10000
-!   write(3,*) DOS(i)
-!end do
+   write(50,'(2f15.10)') DOS(1050),NOS(1050)
+   write(51,'(2f15.10)') DOS(1051),NOS(1051)
+   write(52,'(2f15.10)') DOS(1052),NOS(1052)
+   write(53,'(2f15.10)') DOS(1053),NOS(1053)
+   write(54,'(2f15.10)') DOS(1054),NOS(1054)
+   write(55,'(2f15.10)') DOS(1055),NOS(1055)
+   write(56,'(2f15.10)') DOS(1056),NOS(1056)
+
+   write(57,'(2f15.10)') DOS(257),NOS(257)
+   write(58,'(2f15.10)') DOS(258),NOS(258)
+   write(59,'(2f15.10)') DOS(259),NOS(259)
+   write(60,'(2f15.10)') DOS(260),NOS(260)
+   write(61,'(2f15.10)') DOS(261),NOS(261)
+   write(62,'(2f15.10)') DOS(262),NOS(262)
+   write(63,'(2f15.10)') DOS(263),NOS(263)
+   write(64,'(2f15.10)') DOS(264),NOS(264)
 
 end subroutine parts_cal

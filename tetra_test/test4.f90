@@ -15,8 +15,7 @@ real(8)::pi,a0,moji,laser
 real(8),dimension(4)::DOSpara
 real(8),dimension(100)::wc
 
-DOSpara(1)=51
-!DOSpara(1)=201
+DOSpara(1)=201
 pi=3.141592d0
 a0=5.6754d0/0.529177d0  !格子定数/ボーア半径
 
@@ -31,8 +30,8 @@ call band_30(kx,ky,kz,a)
 call zheev(jobz, uplo, n, a, lda, w, work, lwork, rwork, info)
 
 k=1
-   do i=9,14,2
-        do j=5,8,2
+   do i=9,30,2
+        do j=1,8,2
         wc(k)=w(i)-w(j)
         k=k+1
         end do
