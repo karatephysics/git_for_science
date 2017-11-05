@@ -1,0 +1,63 @@
+#pragma rtGlobals=3		// Use modern global access method and strict wave access.
+
+function	DOS_parts_cal(e0,e1,e2,e3,VT)
+variable/d	e0,e1,e2,e3,VT	//eV
+wave	DOSpara, DOS,NOS
+if(e0==0&&e1==0&&e2==0&&e3==0)
+//do nothing
+else
+	make/o/d/n=4	stock=0
+	stock[0]	=	e0
+	stock[1]	=	e1
+	stock[2]	=	e2
+	stock[3]	=	e3
+	sort	stock,stock
+	e0	=	stock[0]
+	e1	=	stock[1]
+	e2	=	stock[2]
+	e3	=	stock[3]
+	make/o/d/n=(DOSpara[1])	DOS_parts=0
+	variable/d	e_ini	=	DOSpara[2]	//eV
+	variable/d	e_fin	=	DOSpara[3]//eV
+	variable/d	nn		=	DOSpara[1]
+	variable/d	sa		=	(e_fin  -  e_ini)/(nn-1)
+	variable/d	j0		=	round((e0-e_ini)/sa)
+	variable/d	j1		=	round((e1-e_ini)/sa)
+	variable/d	j2		=	round((e2-e_ini)/sa)
+	variable/d	j3		=	round((e3-e_ini)/sa)
+	//variable/d	VT=1
+	//VT=1
+	variable/d	VG=1/2/3*(DOSpara[0]-1)^3
+	variable/d	e10	=	e1-e0
+	variable/d	e20	=	e2-e0
+	variable/d	e30	=	e3-e0
+	variable/d	e21	=	e2-e1
+	variable/d	e31	=	e3-e1
+	variable/d	e32	=	e3-e2
+	variable/d		aa=0
+	for(aa=(j0+1)	;aa<=j1	;aa+=1)
+		if(aa<0 || aa>(nn-1))
+		else
+			DOS[aa]	+=	VT/VG*3*(aa*sa+e_ini  -  e0)^2/(e10*e20*e30)
+			NOS[aa]	+=	VT/VG*(aa*sa+e_ini  -  e0)^3/(e10*e20*e30)
+			DOS_parts[aa]	+=	VT/VG*3*(aa*sa+e_ini  -  e0)^2/(e10*e20*e30)
+		endif
+	endfor
+	for(aa=(j1+1)	;aa<=j2	;aa+=1)
+		if(aa<0 || aa>(nn-1))
+		else
+			DOS[aa]	+=	VT/VG/(e20*e30)*( 3*e10 +6*(aa*sa+e_ini  -  e1) -3*(e20+e31)/(e21*e31)*(aa*sa+e_ini  -  e1)^2 )
+			NOS[aa]	+=	VT/VG*1/(e20*e30)*( e10^2  +  3*e10*(aa*sa+e_ini  -  e2)  +  3*(aa*sa+e_ini  -  e2)^2  -  (e20 + e31)/(e21*e31)*(aa*sa+e_ini  - e2)^3 )
+			DOS_parts[aa]	+=	VT/VG/(e20*e30)*( 3*e10 +6*(aa*sa+e_ini  -  e1) -3*(e20+e31)/(e21*e31)*(aa*sa+e_ini  -  e1)^2 )
+		endif
+	endfor
+	for(aa=(j2+1)	;aa<=j3	;aa+=1)
+		if(aa<0 ||  aa>(nn-1))
+		else
+			DOS[aa]	+=	VT/VG*( 3*(e3  -  (aa*sa+e_ini))^2/(e30*e31*e32) )
+			NOS[aa]	+=	VT*VG*(1  -(e3 -  (aa*sa+e_ini))^3/(e30*e31*e32)  )
+			DOS_parts[aa]	+=	VT/VG*( 3*(e3  -  (aa*sa+e_ini))^2/(e30*e31*e32) )
+		endif
+	endfor
+endif
+end
